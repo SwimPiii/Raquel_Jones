@@ -124,6 +124,7 @@
     const time = countdown(target);
     const card = document.createElement("div");
     card.className = "countdown-content";
+    card.dataset.countdownTarget = String(target);
     const icon = document.createElement("div");
     icon.className = "countdown-icon";
     icon.setAttribute("aria-hidden", "true");
@@ -201,6 +202,14 @@
     form.append(label, input, feedback, submit);
     container.append(toggle, form);
     parent.append(container);
+  }
+
+  function updateCountdownTimer(card, target) {
+    const time = countdown(target);
+    [time.days, time.hours, time.minutes, time.seconds].forEach((amount, index) => {
+      const value = card.querySelectorAll(".countdown-part strong")[index];
+      if (value) value.textContent = String(amount).padStart(2, "0");
+    });
   }
 
   function updateProgress() {
@@ -718,7 +727,19 @@
 
   function tick() {
     updateBirthdayCountdown();
-    if (beforeLaunch() || secondDayLocked()) render();
+    const waitingForLaunch = beforeLaunch();
+    const waitingForSecondDay = secondDayLocked();
+    const countdownCard = elements.stageView.querySelector(".countdown-content");
+    if (waitingForLaunch || waitingForSecondDay) {
+      const target = new Date(waitingForLaunch ? config.startAt : config.secondDayUnlockAt).getTime();
+      if (!countdownCard || Number(countdownCard.dataset.countdownTarget) !== target) {
+        render();
+      } else {
+        updateCountdownTimer(countdownCard, target);
+      }
+      return;
+    }
+    if (countdownCard) render();
   }
 
   elements.demo.addEventListener("click", enterLocalMode);
