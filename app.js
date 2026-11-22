@@ -386,7 +386,7 @@
     input.id = "coordinate-input";
     input.name = "coordinates";
     input.type = "text";
-    input.inputMode = "decimal";
+    input.inputMode = "text";
     input.autocomplete = "off";
     input.spellcheck = false;
     input.placeholder = "";
