@@ -113,9 +113,9 @@ h1 span { color: var(--plum); }
 .countdown-content { display: flex; min-height: 310px; flex-direction: column; align-items: center; justify-content: center; padding: 32px 20px; text-align: center; }
 .countdown-icon { display: grid; width: 43px; height: 43px; place-items: center; margin-bottom: 17px; border-radius: 50%; background: var(--rose-pale); color: var(--rose); font-size: 20px; }
 .countdown-content .eyebrow { margin-bottom: 8px; }
-.countdown-content h2 { max-width: 580px; margin-bottom: 20px; font-size: clamp(22px, 4vw, 31px); letter-spacing: -.045em; }
-.countdown-timer { display: flex; gap: 10px; }
-.countdown-part { display: flex; min-width: 66px; flex-direction: column; gap: 3px; padding: 10px 9px; border: 1px solid var(--line); border-radius: 9px; background: #fff; }
+.countdown-content h2 { width: 100%; max-width: 580px; margin-bottom: 20px; font-size: clamp(22px, 4vw, 31px); line-height: 1.2; letter-spacing: -.045em; overflow-wrap: break-word; }
+.countdown-timer { display: grid; width: min(100%, 360px); grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.countdown-part { display: flex; min-width: 0; flex-direction: column; gap: 3px; padding: 10px 4px; border: 1px solid var(--line); border-radius: 9px; background: #fff; }
 .countdown-part strong { font-family: Manrope, sans-serif; font-size: 23px; }
 .countdown-part span { color: var(--muted); font-size: 8px; font-weight: 800; letter-spacing: .12em; }
 .advance-control { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 21px; }
@@ -179,7 +179,7 @@ body.launch-countdown-only .game-card { width: 100%; margin-top: 0; }
   .stage-description { font-size: 14px; }
   .equation-list { grid-template-columns: 1fr; }
   .equation-row { padding: 9px 10px; }
-  .countdown-part { min-width: 55px; padding: 9px 5px; }
+  .countdown-part { padding: 9px 4px; }
   .countdown-part strong { font-size: 20px; }
 }
 
@@ -189,5 +189,5 @@ body.launch-countdown-only .game-card { width: 100%; margin-top: 0; }
   .topbar-actions { gap: 4px; }
   .topbar .button-small { padding: 0 7px; font-size: 9px; }
   .countdown-timer { gap: 6px; }
-  .countdown-part { min-width: 49px; }
+  .countdown-part { min-width: 0; }
 }
