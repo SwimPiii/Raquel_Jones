@@ -8,7 +8,7 @@ Aplicación web adaptable a móviles para una gymkana de cumpleaños. El progres
 - Las pruebas 1–5 se hacen el 25 de noviembre.
 - Las pruebas 6–10 se desbloquean el 26 de noviembre a las 00:00, hora peninsular española.
 - La portada muestra el tiempo restante hasta el 27 de noviembre de 2026 a las 00:00, en días, horas y minutos.
-- Las pantallas de espera incluyen un acceso para adelantar las pruebas durante la comprobación previa.
+- Las pantallas de espera incluyen un acceso para adelantar pruebas durante la comprobación previa. Adelantar el inicio no elimina la espera de las cinco pruebas del día 26; ese bloqueo tiene su propio acceso.
 - Para saltar las fechas durante las pruebas, abre la aplicación con `?modo=pruebas`, por ejemplo `http://localhost:5512/?modo=pruebas`. Las respuestas siguen validándose y puedes recorrer cada prueba en orden.
 
 ## Preparación física

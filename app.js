@@ -50,7 +50,8 @@
 
   let state = freshState();
   let storageMode = null;
-  let testModeUnlocked = false;
+  let launchTestUnlocked = false;
+  let secondDayTestUnlocked = false;
   let dirty = false;
   let toastTimer = null;
   let clockTimer = null;
@@ -89,15 +90,15 @@
   }
 
   function isTestMode() {
-    return TEST_MODE || testModeUnlocked;
+    return TEST_MODE || launchTestUnlocked || secondDayTestUnlocked;
   }
 
   function beforeLaunch() {
-    return !isTestMode() && Date.now() < new Date(config.startAt).getTime();
+    return !TEST_MODE && !launchTestUnlocked && Date.now() < new Date(config.startAt).getTime();
   }
 
   function secondDayLocked() {
-    return !isTestMode() && state.stage === 5 && Date.now() < new Date(config.secondDayUnlockAt).getTime();
+    return !TEST_MODE && !secondDayTestUnlocked && state.stage === 5 && Date.now() < new Date(config.secondDayUnlockAt).getTime();
   }
 
   function updateBirthdayCountdown() {
@@ -120,7 +121,7 @@
     return { days, hours, minutes, seconds };
   }
 
-  function countdownMarkup(target, title, description, allowAdvance) {
+  function countdownMarkup(target, title, description, advanceScope) {
     const time = countdown(target);
     const card = document.createElement("div");
     card.className = "countdown-content";
@@ -147,11 +148,11 @@
       timer.append(part);
     });
     card.append(icon, heading, text, timer);
-    if (allowAdvance) addAdvanceControl(card);
+    if (advanceScope) addAdvanceControl(card, advanceScope);
     return card;
   }
 
-  function addAdvanceControl(parent) {
+  function addAdvanceControl(parent, advanceScope) {
     const container = document.createElement("div");
     container.className = "advance-control";
     const toggle = document.createElement("button");
@@ -194,7 +195,8 @@
         feedback.textContent = "La palabra clave no es correcta.";
         return;
       }
-      testModeUnlocked = true;
+      if (advanceScope === "launch") launchTestUnlocked = true;
+      else secondDayTestUnlocked = true;
       render();
       showToast("Modo de pruebas activado.", false);
     });
@@ -482,6 +484,11 @@
     elements.loading.hidden = true;
     elements.stageView.hidden = false;
     elements.testBanner.hidden = !isTestMode();
+    elements.testBanner.textContent = TEST_MODE
+      ? "Modo de pruebas: cuenta atrás y desbloqueos por fecha desactivados."
+      : secondDayTestUnlocked
+        ? "Modo de pruebas: pruebas del segundo día adelantadas."
+        : "Modo de pruebas: inicio adelantado; las 5 pruebas siguientes siguen esperando al día 26.";
     elements.notice.hidden = Boolean(storageMode);
     elements.tools.hidden = !storageMode;
     elements.save.disabled = storageMode !== "drive" || !dirty;
@@ -492,7 +499,7 @@
       : "Cambios en Drive pendientes de guardar.";
 
     if (waitingForLaunch) {
-      elements.stageView.replaceChildren(countdownMarkup(new Date(config.startAt).getTime(), "INICIO · 25 DE NOVIEMBRE A LAS 15:30 (HORA PENINSULAR)", "La primera pista se desbloquea en…", true));
+      elements.stageView.replaceChildren(countdownMarkup(new Date(config.startAt).getTime(), "INICIO · 25 DE NOVIEMBRE A LAS 15:30 (HORA PENINSULAR)", "La primera pista se desbloquea en…", "launch"));
       return;
     }
     if (!storageMode) {
@@ -509,7 +516,7 @@
       return;
     }
     if (secondDayLocked()) {
-      elements.stageView.replaceChildren(countdownMarkup(new Date(config.secondDayUnlockAt).getTime(), "DÍA 2 · 26 DE NOVIEMBRE A LAS 00:00 (HORA PENINSULAR)", "Tienes que esperar para hacer las 5 pruebas siguientes…", true));
+      elements.stageView.replaceChildren(countdownMarkup(new Date(config.secondDayUnlockAt).getTime(), "DÍA 2 · 26 DE NOVIEMBRE A LAS 00:00 (HORA PENINSULAR)", "Tienes que esperar para hacer las 5 pruebas siguientes…", "second-day"));
       return;
     }
     if (state.stage >= TOTAL_STAGES) {
