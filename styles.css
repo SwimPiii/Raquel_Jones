@@ -154,8 +154,9 @@ body.launch-countdown-only .game-tools,
 body.launch-countdown-only .note-card,
 body.launch-countdown-only .footer { display: none !important; }
 body.launch-countdown-only .app-shell { min-height: 100vh; display: flex; flex-direction: column; }
-body.launch-countdown-only main { flex: 1; display: flex; align-items: center; padding-bottom: 30px; }
-body.launch-countdown-only .game-card { width: 100%; margin-top: 0; }
+body.launch-countdown-only main { flex: 1; display: flex; flex-direction: column; align-items: stretch; justify-content: center; padding-bottom: 30px; }
+body.launch-countdown-only .game-card { order: 0; width: 100%; margin-top: 0; }
+body.launch-countdown-only .birthday-countdown { order: 1; width: 100%; margin: 16px 0 0; }
 
 @media (max-width: 680px) {
   .app-shell { width: min(100% - 26px, 540px); }
