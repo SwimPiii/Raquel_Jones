@@ -4,6 +4,7 @@
   const config = window.CUMPLE_RAQUEL_CONFIG;
   const STORAGE_KEY = "raquel-cumple-2026-progress-v3";
   const TEST_MODE = new URLSearchParams(window.location.search).get("modo") === "pruebas";
+  const ADVANCE_TEST_KEY = "PRUEBAISMAEL";
   const TOTAL_STAGES = 10;
   const INTRO_STORY = "En 2026, entre diarios de expedición y mapas sin firma, empezó a circular un nombre: Raquel Jones, exploradora incansable y descifradora de enigmas. Una tarde recibió un sobre sellado. Dentro había un mapa incompleto y una nota: «El tesoro no se encuentra siguiendo una línea recta. Cada respuesta te dará una nueva pista; algunas están muy cerca y otras esperan su momento». Hoy comienza la búsqueda.";
   const COUNT_ERROR_MESSAGES = ["Vas a tener que volver a la escuela.", "Aprende a contar."];
@@ -49,6 +50,7 @@
 
   let state = freshState();
   let storageMode = null;
+  let testModeUnlocked = false;
   let dirty = false;
   let toastTimer = null;
   let clockTimer = null;
@@ -86,12 +88,16 @@
     elements.statusWrap.classList.toggle("is-connected", Boolean(isConnected));
   }
 
+  function isTestMode() {
+    return TEST_MODE || testModeUnlocked;
+  }
+
   function beforeLaunch() {
-    return !TEST_MODE && Date.now() < new Date(config.startAt).getTime();
+    return !isTestMode() && Date.now() < new Date(config.startAt).getTime();
   }
 
   function secondDayLocked() {
-    return !TEST_MODE && state.stage === 5 && Date.now() < new Date(config.secondDayUnlockAt).getTime();
+    return !isTestMode() && state.stage === 5 && Date.now() < new Date(config.secondDayUnlockAt).getTime();
   }
 
   function updateBirthdayCountdown() {
@@ -114,7 +120,7 @@
     return { days, hours, minutes, seconds };
   }
 
-  function countdownMarkup(target, title, description) {
+  function countdownMarkup(target, title, description, allowAdvance) {
     const time = countdown(target);
     const card = document.createElement("div");
     card.className = "countdown-content";
@@ -140,7 +146,61 @@
       timer.append(part);
     });
     card.append(icon, heading, text, timer);
+    if (allowAdvance) addAdvanceControl(card);
     return card;
+  }
+
+  function addAdvanceControl(parent) {
+    const container = document.createElement("div");
+    container.className = "advance-control";
+    const toggle = document.createElement("button");
+    toggle.type = "button";
+    toggle.className = "button button-outline";
+    toggle.textContent = "Adelantar pruebas";
+
+    const form = document.createElement("form");
+    form.className = "advance-form";
+    form.hidden = true;
+    const label = document.createElement("label");
+    label.className = "field-label";
+    label.htmlFor = "advance-password";
+    label.textContent = "Palabra clave";
+    const input = document.createElement("input");
+    input.id = "advance-password";
+    input.className = "answer-input";
+    input.type = "password";
+    input.autocomplete = "off";
+    input.required = true;
+    const feedback = document.createElement("p");
+    feedback.className = "answer-feedback";
+    const submit = document.createElement("button");
+    submit.type = "submit";
+    submit.className = "button button-primary submit-button";
+    submit.textContent = "Comprobar clave";
+
+    toggle.addEventListener("click", () => {
+      form.hidden = !form.hidden;
+      if (!form.hidden) input.focus();
+    });
+    input.addEventListener("input", () => {
+      input.removeAttribute("aria-invalid");
+      feedback.textContent = "";
+    });
+    form.addEventListener("submit", event => {
+      event.preventDefault();
+      if (input.value.trim() !== ADVANCE_TEST_KEY) {
+        input.setAttribute("aria-invalid", "true");
+        feedback.textContent = "La palabra clave no es correcta.";
+        return;
+      }
+      testModeUnlocked = true;
+      render();
+      showToast("Modo de pruebas activado.", false);
+    });
+
+    form.append(label, input, feedback, submit);
+    container.append(toggle, form);
+    parent.append(container);
   }
 
   function updateProgress() {
@@ -412,7 +472,7 @@
     updateProgress();
     elements.loading.hidden = true;
     elements.stageView.hidden = false;
-    elements.testBanner.hidden = !TEST_MODE;
+    elements.testBanner.hidden = !isTestMode();
     elements.notice.hidden = Boolean(storageMode);
     elements.tools.hidden = !storageMode;
     elements.save.disabled = storageMode !== "drive" || !dirty;
@@ -423,7 +483,7 @@
       : "Cambios en Drive pendientes de guardar.";
 
     if (waitingForLaunch) {
-      elements.stageView.replaceChildren(countdownMarkup(new Date(config.startAt).getTime(), "INICIO · 25 DE NOVIEMBRE A LAS 15:30 (HORA PENINSULAR)", "La primera pista se desbloquea en…"));
+      elements.stageView.replaceChildren(countdownMarkup(new Date(config.startAt).getTime(), "INICIO · 25 DE NOVIEMBRE A LAS 15:30 (HORA PENINSULAR)", "La primera pista se desbloquea en…", true));
       return;
     }
     if (!storageMode) {
@@ -440,7 +500,7 @@
       return;
     }
     if (secondDayLocked()) {
-      elements.stageView.replaceChildren(countdownMarkup(new Date(config.secondDayUnlockAt).getTime(), "DÍA 2 · 26 DE NOVIEMBRE A LAS 00:00 (HORA PENINSULAR)", "Las pruebas del segundo día se desbloquean en…"));
+      elements.stageView.replaceChildren(countdownMarkup(new Date(config.secondDayUnlockAt).getTime(), "DÍA 2 · 26 DE NOVIEMBRE A LAS 00:00 (HORA PENINSULAR)", "Tienes que esperar para hacer las 5 pruebas siguientes…", true));
       return;
     }
     if (state.stage >= TOTAL_STAGES) {

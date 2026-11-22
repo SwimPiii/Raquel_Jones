@@ -118,6 +118,9 @@ h1 span { color: var(--plum); }
 .countdown-part { display: flex; min-width: 66px; flex-direction: column; gap: 3px; padding: 10px 9px; border: 1px solid var(--line); border-radius: 9px; background: #fff; }
 .countdown-part strong { font-family: Manrope, sans-serif; font-size: 23px; }
 .countdown-part span { color: var(--muted); font-size: 8px; font-weight: 800; letter-spacing: .12em; }
+.advance-control { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-top: 21px; }
+.advance-form { width: min(100%, 340px); text-align: left; }
+.advance-form .submit-button { width: 100%; }
 
 .equation-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 12px; margin: 24px 0 0; padding: 0; list-style: none; }
 .equation-row { display: flex; align-items: baseline; justify-content: space-between; gap: 8px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: #fff; }
