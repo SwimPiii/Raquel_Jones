@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f8f3ed">
+  <meta name="description" content="RaquelJones: una aventura de cumpleaños llena de enigmas.">
+  <title>RaquelJones</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script src="https://apis.google.com/js/api.js" async defer></script>
+  <script src="config.js" defer></script>
+  <script src="drive.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="RaquelJones, inicio">
+        <span class="brand-mark" aria-hidden="true">R</span>
+        <span>RaquelJones</span>
+      </a>
+      <div class="topbar-actions">
+        <span class="sync-status" id="sync-status"><span class="status-dot"></span><span id="sync-label">Elige dónde guardar</span></span>
+        <button class="button button-outline button-small" id="connect-button" type="button">Conectar Drive</button>
+        <button class="button button-primary button-small" id="save-button" type="button" disabled>Guardar</button>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <p class="eyebrow">25 · 26 · 27 NOVIEMBRE 2026</p>
+          <h1>3 días para ser<br><span>más viejita</span></h1>
+        </div>
+        <div class="hero-stamp"><span aria-hidden="true">♥</span><small>De Maripuri e Ismaelotis con mucho cariño (y maldad jijiji)</small></div>
+      </section>
+
+      <section class="birthday-countdown" aria-label="Cuenta atrás para el cumpleaños">
+        <span>Tiempo hasta hacerte MUY viejita...</span>
+        <strong id="birthday-countdown-time" role="timer" aria-live="off"></strong>
+      </section>
+
+      <section class="progress-card" aria-label="Progreso de la aventura" hidden>
+        <div class="progress-copy"><div><span class="eyebrow">TU AVENTURA</span><strong id="progress-label">Aún por empezar</strong></div><span class="progress-count" id="progress-count">0 / 8</span></div>
+        <div class="progress-track"><span id="progress-bar"></span></div>
+        <div class="progress-steps" id="progress-steps" aria-hidden="true"></div>
+      </section>
+
+      <div id="test-banner" class="test-banner" hidden>Modo de pruebas: cuenta atrás y desbloqueos por fecha desactivados.</div>
+      <div id="connection-notice" class="notice">
+        <div class="notice-icon" aria-hidden="true">☁</div>
+        <div class="notice-copy"><strong>¿Dónde guardamos tu progreso?</strong><p>Drive permite continuar desde otro dispositivo. Para probar, puedes guardarlo solo en este móvil.</p></div>
+        <div class="notice-actions"><button class="button button-dark" id="demo-button" type="button">Continuar en este móvil</button><button class="button button-outline" id="notice-connect" type="button">Conectar Drive</button></div>
+      </div>
+
+      <section class="game-card" id="game-card" aria-live="polite">
+        <div class="loading-state" id="loading-state">Preparando la aventura…</div>
+        <div class="stage-view" id="stage-view" hidden></div>
+      </section>
+
+      <section class="game-tools" id="game-tools" hidden>
+        <span id="storage-hint">Tu progreso se guarda automáticamente en este dispositivo.</span>
+        <button class="text-button" id="reset-button" type="button">Reiniciar pruebas</button>
+      </section>
+
+      <section class="note-card">
+        <span class="note-icon" aria-hidden="true">✦</span>
+        <p>Con paciencia y saliva....jijijijijijijijiji</p>
+      </section>
+    </main>
+
+    <footer class="footer"><span>Hecho con cariño · 2026</span><span>Una pista cada vez.</span></footer>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
