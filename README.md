@@ -13,17 +13,17 @@ Aplicación web adaptable a móviles para una gymkana de cumpleaños. El progres
 
 ## Preparación física
 
-1. **Día 25:** prepara 2020 garbanzos. Pinta letras en diez; incluye las letras de `BESOS` y cinco letras de distracción.
+1. **Día 25:** prepara 2020 lentejas. Pinta letras en diez; incluye las letras de `BESOS` y cinco letras de distracción.
 2. Deja el osito blanco en casa de su madre, con el código `97531` detrás.
 3. Añade a su calendario una nota para una fecha futura del año que viene con la pista del vasito y el ajo. El código que introducirá es `86420`.
 4. Dale a María el puzzle de 1000 piezas y el código `123454321` para que se lo entregue cuando esté montado.
 5. **Día 26:** esconde cuatro corazones, cada uno con una adivinanza. Después de que Raquel resuelva las cuatro, pulsa **Continuar** y confirma que las has validado tú.
-6. La app propone operaciones de fracciones. Al resolverlas, debe escribir `40.381357, -3.206304`.
+6. La app propone operaciones de fracciones. Al resolverlas, debe escribir `40.3830151, -3.4105891`.
 7. Deja el código `PAPEL` en el lugar del objeto para que pueda introducirlo al llegar. La pantalla también tendrá un botón para abrir el GPS en el mapa.
 8. Prepara Mario Kart en Switch. María dará `123456789` si Raquel gana tres carreras seguidas (la última sin objetos para ninguna) o si se rinde con la frase de la app.
 9. Después de la cena, el jurado le dará la palabra `CONFORMES`.
 
-Después del prólogo de Raquel Jones, el orden es: garbanzos y palabra, búsqueda en sus orígenes, la frase de su móvil y el código que le entregas, puzzle de María, corazones validados por ti, coordenadas y código `PAPEL`, Mario Kart y cena. Son 10 pasos dentro de la app porque el recuento y la palabra de los garbanzos tienen respuestas separadas. Al introducir `CONFORMES`, aparece el mensaje final sobre el regalo junto a los cascos de la moto.
+Después del prólogo de Raquel Jones, el orden es: lentejas y palabra, búsqueda en sus orígenes, la frase de su móvil y el código que le entregas, puzzle de María, corazones validados por ti, coordenadas y código `PAPEL`, Mario Kart y cena. Son 10 pasos dentro de la app porque el recuento y la palabra de las lentejas tienen respuestas separadas. Al introducir `CONFORMES`, aparece el mensaje final sobre el regalo junto a los cascos de la moto.
 
 ## Probar en local
 

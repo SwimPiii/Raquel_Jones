@@ -9,21 +9,23 @@
   const INTRO_STORY = "En 2026, entre diarios de expedición y mapas sin firma, empezó a circular un nombre: Raquel Jones, exploradora incansable y descifradora de enigmas. Una tarde recibió un sobre sellado. Dentro había un mapa incompleto y una nota: «El tesoro no se encuentra siguiendo una línea recta. Cada respuesta te dará una nueva pista; algunas están muy cerca y otras esperan su momento». Hoy comienza la búsqueda.";
   const COUNT_ERROR_MESSAGES = ["Vas a tener que volver a la escuela.", "Aprende a contar."];
   const FRACTIONS = [
-    "3/2 + 5/3 + 7/4 - 11/12",
-    "7/3 + 5/4 - 11/6 - 7/4",
-    "9/4 + 5/3 - 11/12",
-    "13/2 + 7/3 - 5/6",
-    "7/2 - 5/3 - 5/6",
-    "13/4 + 5/3 - 23/12",
-    "11/2 + 4/3 - 11/6",
-    "21/4 + 7/3 - 7/12",
-    "11/4 + 2/3 - 5/12",
-    "7/2 + 5/3 - 19/6",
-    "13/4 - 7/3 - 11/12",
-    "17/3 + 7/4 - 17/12",
-    "11/2 + 5/3 - 25/6",
-    "7/2 + 5/3 - 31/6",
-    "7/2 + 5/3 - 7/6"
+    "9/4 - 11/12 + 8/3",
+    "9/2 - 10/3 - 7/6",
+    "8/3 - 3/2 + 11/6",
+    "2/3 + 13/2 + 5/4 - 5/12",
+    "15/8 - 9/4 + 27/8",
+    "19/4 - 11/6 + 7/4 - 14/3",
+    "7/4 - 7/6 + 5/4 - 5/6",
+    "25/6 - 2/3 + 3/2",
+    "5/3 + 1/2 - 7/6",
+    "23/8 - 3/2 + 13/8",
+    "13/3 + 4/3 - 5/3",
+    "17/12 - 7/12 - 13/3 + 9/2",
+    "23/12 - 1/3 + 14/3 - 25/4",
+    "13/2 + 2/3 - 13/6",
+    "5/3 + 25/8 + 15/8 + 4/3",
+    "5/2 - 3/2 + 7/2 + 9/2",
+    "3/2 + 19/6 - 11/3"
   ];
 
   const elements = {
@@ -373,7 +375,7 @@
 
     const hint = document.createElement("p");
     hint.className = "coordinate-hint";
-    hint.innerHTML = "Formato a rellenar: <strong>_ _ . _ _ _ _ _ _, - _ . _ _ _ _ _ _</strong>";
+    hint.innerHTML = "Formato a rellenar: <strong>_ _ . _ _ _ _ _ _ _, - _ . _ _ _ _ _ _ _</strong>";
     card.append(hint);
 
     renderMessage(card);
@@ -529,14 +531,14 @@
         renderFormStage({
           eyebrow: "PRUEBA 1 · OJO Y PACIENCIA",
           title: "Ni uno más, ni uno menos",
-          description: "Cuenta todos los garbanzos del cuenco y escribe el número exacto.",
-          label: "¿Cuántos garbanzos hay?",
+          description: "Cuenta todas las lentejas del cuenco y escribe el número exacto.",
+          label: "¿Cuántas lentejas hay?",
           type: "number",
           inputMode: "numeric",
           placeholder: "Escribe el número",
           maxLength: 8,
           check: (value, feedback, input) => {
-            const correct = value.trim() === String(config.chickpeaCount);
+            const correct = value.trim() === String(config.lentilCount);
             const wrongMessage = COUNT_ERROR_MESSAGES[Math.floor(Math.random() * COUNT_ERROR_MESSAGES.length)];
             answerResult(feedback, input, correct, correct ? "¡Correcto!" : wrongMessage);
             if (correct) advance("¡Correcto!");
@@ -592,7 +594,7 @@
       case 4:
         renderFormStage({
           eyebrow: "PRUEBA 5 · PACIENCIA",
-          title: "Una sorpresa de mil piezas",
+          title: "La sorpresa de María",
           description: "Pregunta a María, pídele tu siguiente sorpresita....jijijijijiji",
           label: "Código que te dé María",
           inputMode: "numeric",

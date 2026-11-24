@@ -12,7 +12,7 @@ window.CUMPLE_RAQUEL_CONFIG = {
   birthdayAt: "2026-11-27T00:00:00+01:00",
   startAt: "2026-11-25T15:30:00+01:00",
   secondDayUnlockAt: "2026-11-26T00:00:00+01:00",
-  chickpeaCount: 2020,
+  lentilCount: 2020,
   word: "BESOS",
   answers: {
     originCode: "97531",
@@ -21,6 +21,6 @@ window.CUMPLE_RAQUEL_CONFIG = {
     afterCoordinatesCode: "PAPEL",
     marioKartCode: "123456789",
     dinnerCode: "CONFORMES",
-    coordinates: "40.381357,-3.206304"
+    coordinates: "40.3830151,-3.4105891"
   }
 };
